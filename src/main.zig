@@ -19,4 +19,6 @@ pub fn main(init: std.process.Init) !void {
     defer connection.close(io);
 
     try std.Io.File.writeStreamingAll(std.Io.File.stdout(), io, "accepted new connection");
+    var connection_writer = connection.writer(io, &.{});
+    try connection_writer.interface.writeAll("+PONG\r\n");
 }
